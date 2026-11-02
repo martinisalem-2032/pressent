@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notas de PRESSENT</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230c0b10%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-family=%27Georgia%27 font-size=%2720%27 text-anchor=%27middle%27 fill=%27%23b88a3b%27%3EP%3C/text%3E%3C/svg%3E">
+<script src="web-shim.js"></script>
+<style>
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:#17151c;color:#f2edf3;font:14px "Segoe UI",sans-serif;overflow:hidden}.panel{height:100%;display:flex;flex-direction:column;padding:12px;gap:10px}.bar{display:flex;align-items:center;gap:6px;flex:0 0 auto}.label{flex:1;color:#b6b0bd;font-size:11px;letter-spacing:.12em;text-transform:uppercase}.bar button{height:30px;min-width:34px;padding:0 8px;border:1px solid #403947;border-radius:6px;background:#211e27;color:#f2edf3;cursor:pointer}.bar button:hover{border-color:#eb4a8d}.note{flex:1;width:100%;min-height:70px;resize:none;overflow-y:auto;border:1px solid #393440;border-radius:7px;background:#100f14;color:#f2edf3;padding:12px;line-height:1.55;outline:none;font:16px/1.55 "Segoe UI",sans-serif}.note:focus{border-color:#655268}.note::placeholder{color:#817b88}
+</style>
+</head>
+<body>
+<main class="panel">
+  <div class="bar"><span class="label">Notas de PRESSENT</span><button id="smaller" title="Disminuir letra">A−</button><button id="larger" title="Aumentar letra">A+</button></div>
+  <textarea class="note" id="note" placeholder="Escribe las notas de esta diapositiva…"></textarea>
+</main>
+<script>
+const note=document.getElementById('note');let fontSize=16;let applyingRemote=false;
+function setSize(value,send=true){fontSize=Math.max(10,Math.min(42,Number(value)||16));note.style.fontSize=fontSize+'px';if(send)window.presenterDesktop?.sendNotesFontSize({fontSize})}
+function show(payload={}){if(typeof payload.text==='string'&&payload.text!==note.value){applyingRemote=true;note.value=payload.text;applyingRemote=false}if(payload.fontSize)setSize(payload.fontSize,false);fitContent()}
+function fitContent(){requestAnimationFrame(()=>{const contentHeight=note.scrollHeight+112;if(note.scrollHeight>note.clientHeight+2)window.presenterDesktop?.reportNotesHeight(contentHeight)})}
+note.addEventListener('input',()=>{if(!applyingRemote)window.presenterDesktop?.sendNotesChange({text:note.value,fontSize});fitContent()});
+note.addEventListener('wheel',event=>{event.preventDefault();setSize(fontSize+(event.deltaY<0?1:-1))},{passive:false});
+document.getElementById('smaller').onclick=()=>setSize(fontSize-1);document.getElementById('larger').onclick=()=>setSize(fontSize+1);
+window.presenterDesktop?.onNotesUpdate(show);window.presenterDesktop?.onNotesFontSize(({fontSize:value})=>setSize(value,false));
+show();note.focus();
+</script>
+</body>
+</html>
