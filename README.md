@@ -4,7 +4,7 @@ Editor y presentador de diapositivas. Funciona directamente en el navegador: no 
 
 ## 👉 Abrir PRESSENT
 
-**https://martinisalem-2032.github.io/pressent-web/**
+**https://martinisalem-2032.github.io/pressent/**
 
 ## Qué permite hacer
 
@@ -77,7 +77,7 @@ A slide editor and presenter. It runs directly in your browser: nothing to insta
 
 ## 👉 Open PRESSENT
 
-**https://martinisalem-2032.github.io/pressent-web/**
+**https://martinisalem-2032.github.io/pressent/**
 
 ## What you can do
 
