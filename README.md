@@ -1,4 +1,4 @@
-# PRESSENT V2.0
+# PRESSENT V1.0
 
 Editor y presentador de diapositivas. Funciona directamente en el navegador: no hay que instalar nada, ni crear cuenta.
 
@@ -71,7 +71,7 @@ Cada archivo se abre como un **espacio de trabajo nuevo**, sin pisar los existen
 
 ---
 
-# PRESSENT V2.0
+# PRESSENT V1.0
 
 A slide editor and presenter. It runs directly in your browser: nothing to install and no account needed.
 
